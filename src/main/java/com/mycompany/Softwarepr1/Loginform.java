@@ -126,17 +126,20 @@ String passVal = password.getText();
 
     // Step 3: Database Connection
     Connection con = null; 
-    Statement stmt = null; 
+    PreparedStatement pstmt = null;
     ResultSet result = null; 
 
     try {
         // Use the 'url' string you created at the top
         con = DriverManager.getConnection(url); 
-        stmt = con.createStatement(); 
         
-        // Match the username and password in the database
-        String query = "SELECT * FROM users WHERE username='" + userVal + "' AND userPassword='" + passVal + "'"; 
-        result = stmt.executeQuery(query); 
+        // Match the username and password in the database using PreparedStatement
+        String query = "SELECT * FROM users WHERE username=? AND userPassword=?";
+        pstmt = con.prepareStatement(query);
+        pstmt.setString(1, userVal);
+        pstmt.setString(2, passVal);
+
+        result = pstmt.executeQuery();
 
         if (result.next()) {
             // Pull the first name from your SQL table

@@ -19,6 +19,8 @@ public class Registrationform extends javax.swing.JFrame {
      */
     public Registrationform() {
         initComponents();
+        buttonGroup1.add(Male);
+        buttonGroup1.add(Female);
     }
 
     /**
@@ -263,11 +265,24 @@ public class Registrationform extends javax.swing.JFrame {
         String email = mail.getText();
         String phone_num = phone.getText();
 
-        int user_age = Integer.parseInt(age.getText());
+        int user_age = 0;
+        try {
+            user_age = Integer.parseInt(age.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid age.");
+            return;
+        }
 
         Male.setActionCommand("male");
         Female.setActionCommand("female");
-        String gender = buttonGroup1.getSelection().getActionCommand();
+
+        String gender = "Not specified";
+        if (buttonGroup1.getSelection() != null) {
+            gender = buttonGroup1.getSelection().getActionCommand();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a gender.");
+            return;
+        }
 
         String output = "first name - " + first_name + "\n"
         + "last name - " + last_name + "\n"

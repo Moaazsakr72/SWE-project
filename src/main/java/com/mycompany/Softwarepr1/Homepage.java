@@ -16,6 +16,27 @@ public class Homepage extends javax.swing.JFrame {
      */
     public Homepage() {
         initComponents();
+
+        javax.swing.ButtonGroup question1Group = new javax.swing.ButtonGroup();
+        question1Group.add(jRadioButton1);
+        question1Group.add(jRadioButton2);
+        question1Group.add(jRadioButton3);
+        question1Group.add(jRadioButton4);
+        question1Group.add(jRadioButton5);
+
+        javax.swing.ButtonGroup question2Group = new javax.swing.ButtonGroup();
+        question2Group.add(jRadioButton13);
+        question2Group.add(jRadioButton14);
+        question2Group.add(jRadioButton15);
+        question2Group.add(jRadioButton11);
+        question2Group.add(jRadioButton12);
+
+        javax.swing.ButtonGroup question3Group = new javax.swing.ButtonGroup();
+        question3Group.add(jRadioButton18);
+        question3Group.add(jRadioButton19);
+        question3Group.add(jRadioButton20);
+        question3Group.add(jRadioButton16);
+        question3Group.add(jRadioButton17);
     }
 
     /**
