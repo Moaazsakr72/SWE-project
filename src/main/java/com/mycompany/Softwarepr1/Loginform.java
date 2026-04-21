@@ -4,6 +4,9 @@
  */
 package com.mycompany.Softwarepr1;
 import java.sql.*; 
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,22 +14,48 @@ import javax.swing.JOptionPane;
  * @author Moaaz
  */
 public class Loginform extends javax.swing.JFrame {
-  private final String url = "jdbc:sqlserver://MOAAZ;databaseName=SWE2DB2;" // Added ; inside quotes
-        + "user=sakr;password=sakr;" // Added ; inside quotes
-        + "encrypt=true;trustServerCertificate=true;";
+    private String dbUrl;
+    private String dbUser;
+    private String dbPassword;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Loginform.class.getName());
 
     /**
      * Creates new form Loginform
      */
-  public Loginform() {
-    initComponents();
-    try {
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    } catch (ClassNotFoundException ex) {
-        JOptionPane.showMessageDialog(this, "Cannot Load JDBC Driver !!!");
+    public Loginform() {
+        initComponents();
+        loadDatabaseConfig();
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Cannot Load JDBC Driver !!!");
+        }
     }
-}
+
+    private void loadDatabaseConfig() {
+        Properties prop = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties")) {
+            if (input != null) {
+                prop.load(input);
+                dbUrl = prop.getProperty("db.url");
+                dbUser = prop.getProperty("db.user");
+                dbPassword = prop.getProperty("db.password");
+            } else {
+                logger.log(java.util.logging.Level.INFO, "db.properties not found, using defaults/environment variables");
+            }
+        } catch (IOException ex) {
+            logger.log(java.util.logging.Level.SEVERE, "Error loading db.properties", ex);
+        }
+
+        // Allow environment variables to override
+        String envUrl = System.getenv("DB_URL");
+        if (envUrl != null) dbUrl = envUrl;
+        String envUser = System.getenv("DB_USER");
+        if (envUser != null) dbUser = envUser;
+        String envPass = System.getenv("DB_PASSWORD");
+        if (envPass != null) dbPassword = envPass;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,43 +144,37 @@ public class Loginform extends javax.swing.JFrame {
 
     private void loginbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbuttonActionPerformed
         // Match these to your Navigator names!
-String userVal = username.getText(); 
-String passVal = password.getText();
+        String userVal = username.getText();
+        String passVal = password.getText();
 
-    // Step 2: Basic validation
-    if(userVal.isEmpty() || passVal.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter both Username and Password");
-        return;
-    }
-
-    // Step 3: Database Connection
-    Connection con = null; 
-    Statement stmt = null; 
-    ResultSet result = null; 
-
-    try {
-        // Use the 'url' string you created at the top
-        con = DriverManager.getConnection(url); 
-        stmt = con.createStatement(); 
-        
-        // Match the username and password in the database
-        String query = "SELECT * FROM users WHERE username='" + userVal + "' AND userPassword='" + passVal + "'"; 
-        result = stmt.executeQuery(query); 
-
-        if (result.next()) {
-            // Pull the first name from your SQL table
-            String name = result.getString("firstName"); 
-            JOptionPane.showMessageDialog(this, "Welcome " + name + "!"); 
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+        // Step 2: Basic validation
+        if(userVal.isEmpty() || passVal.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter both Username and Password");
+            return;
         }
-    } catch (Exception ex) {
-        // This will show if there's a problem with your SQL connection
-        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage()); 
-    } finally {
-        // Close the connection to save resources on your MSI
-        try { if(con != null) con.close(); } catch (Exception e) {}
-    }
+
+        // Step 3: Database Connection
+        String query = "SELECT firstName FROM users WHERE username=? AND userPassword=?";
+
+        try (Connection con = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+
+            pstmt.setString(1, userVal);
+            pstmt.setString(2, passVal);
+
+            try (ResultSet result = pstmt.executeQuery()) {
+                if (result.next()) {
+                    // Pull the first name from your SQL table
+                    String name = result.getString("firstName");
+                    JOptionPane.showMessageDialog(this, "Welcome " + name + "!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+                }
+            }
+        } catch (Exception ex) {
+            // This will show if there's a problem with your SQL connection
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_loginbuttonActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
