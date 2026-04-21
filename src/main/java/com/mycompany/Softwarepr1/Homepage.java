@@ -303,10 +303,26 @@ public class Homepage extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Loginform lf = new Loginform();
-        lf.setVisible(true);
-        lf.setLocation(100, 100);
-        lf.setResizable(false);
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            Homepage hp = new Homepage();
+            hp.setVisible(true);
+            hp.setLocationRelativeTo(null);
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
