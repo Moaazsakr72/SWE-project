@@ -16,27 +16,44 @@ public class Homepage extends javax.swing.JFrame {
      */
     public Homepage() {
         initComponents();
+        groupRadioButtons();
+    }
 
-        javax.swing.ButtonGroup question1Group = new javax.swing.ButtonGroup();
-        question1Group.add(jRadioButton1);
-        question1Group.add(jRadioButton2);
-        question1Group.add(jRadioButton3);
-        question1Group.add(jRadioButton4);
-        question1Group.add(jRadioButton5);
+    private void groupRadioButtons() {
+        javax.swing.JRadioButton[][] buttonGroups = {
+            {jRadioButton16, jRadioButton17, jRadioButton18, jRadioButton19, jRadioButton20},
+            {jRadioButton21, jRadioButton22, jRadioButton23, jRadioButton24, jRadioButton25},
+            {jRadioButton26, jRadioButton27, jRadioButton28, jRadioButton29, jRadioButton30},
+            {jRadioButton31, jRadioButton32, jRadioButton33, jRadioButton34, jRadioButton35},
+            {jRadioButton36, jRadioButton37, jRadioButton38, jRadioButton39, jRadioButton40},
+            {jRadioButton46, jRadioButton47, jRadioButton48, jRadioButton49, jRadioButton50},
+            {jRadioButton61, jRadioButton62, jRadioButton63, jRadioButton64, jRadioButton65},
+            {jRadioButton66, jRadioButton67, jRadioButton68, jRadioButton69, jRadioButton70},
+            {jRadioButton71, jRadioButton72, jRadioButton73, jRadioButton74, jRadioButton75},
+            {jRadioButton76, jRadioButton77, jRadioButton78, jRadioButton79, jRadioButton80},
+            {jRadioButton81, jRadioButton82, jRadioButton83, jRadioButton84, jRadioButton85},
+            {jRadioButton86, jRadioButton87, jRadioButton88, jRadioButton89, jRadioButton90},
+            {jRadioButton91, jRadioButton92, jRadioButton93, jRadioButton94, jRadioButton95},
+            {jRadioButton96, jRadioButton97, jRadioButton98, jRadioButton99, jRadioButton100},
+            {jRadioButton106, jRadioButton107, jRadioButton108, jRadioButton109, jRadioButton110},
+            {jRadioButton111, jRadioButton112, jRadioButton113, jRadioButton114, jRadioButton115},
+            {jRadioButton116, jRadioButton117, jRadioButton118, jRadioButton119, jRadioButton120},
+            {jRadioButton121, jRadioButton122, jRadioButton123, jRadioButton124, jRadioButton125},
+            {jRadioButton126, jRadioButton127, jRadioButton128, jRadioButton129, jRadioButton130},
+            {jRadioButton131, jRadioButton132, jRadioButton133, jRadioButton134, jRadioButton135},
+            {jRadioButton136, jRadioButton137, jRadioButton138, jRadioButton139, jRadioButton140},
+            {jRadioButton141, jRadioButton142, jRadioButton143, jRadioButton144, jRadioButton145},
+            {jRadioButton146, jRadioButton147, jRadioButton148, jRadioButton149, jRadioButton150}
+        };
 
-        javax.swing.ButtonGroup question2Group = new javax.swing.ButtonGroup();
-        question2Group.add(jRadioButton13);
-        question2Group.add(jRadioButton14);
-        question2Group.add(jRadioButton15);
-        question2Group.add(jRadioButton11);
-        question2Group.add(jRadioButton12);
-
-        javax.swing.ButtonGroup question3Group = new javax.swing.ButtonGroup();
-        question3Group.add(jRadioButton18);
-        question3Group.add(jRadioButton19);
-        question3Group.add(jRadioButton20);
-        question3Group.add(jRadioButton16);
-        question3Group.add(jRadioButton17);
+        for (javax.swing.JRadioButton[] group : buttonGroups) {
+            javax.swing.ButtonGroup bg = new javax.swing.ButtonGroup();
+            for (javax.swing.JRadioButton btn : group) {
+                if (btn != null) {
+                    bg.add(btn);
+                }
+            }
+        }
     }
 
     /**
