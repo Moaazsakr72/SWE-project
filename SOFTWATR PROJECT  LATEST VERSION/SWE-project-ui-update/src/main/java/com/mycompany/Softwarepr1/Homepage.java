@@ -557,7 +557,6 @@ public class Homepage extends javax.swing.JFrame {
         jTextField3.setText("Guest/Room selection");
         jTextField3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextField3.setCaretColor(new java.awt.Color(255, 153, 0));
-        jTextField3.addActionListener(this::jTextField3ActionPerformed);
 
         jButton4.setBackground(new java.awt.Color(217, 119, 6));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -1418,10 +1417,6 @@ public class Homepage extends javax.swing.JFrame {
     private void jRadioButton90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton90ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton90ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
