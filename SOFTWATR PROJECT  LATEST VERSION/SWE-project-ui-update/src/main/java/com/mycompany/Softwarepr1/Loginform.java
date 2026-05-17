@@ -117,7 +117,7 @@ public class Loginform extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        // TODO add your handling code here:
+        password.requestFocusInWindow();
     }//GEN-LAST:event_usernameActionPerformed
 
     private void loginbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbuttonActionPerformed
@@ -165,7 +165,7 @@ String passVal = password.getText();
     }//GEN-LAST:event_loginbuttonActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
+        loginbutton.doClick();
     }//GEN-LAST:event_passwordActionPerformed
 
     /**
